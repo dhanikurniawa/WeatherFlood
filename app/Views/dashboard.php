@@ -54,15 +54,12 @@
 
 </div>
 
-<div class="card">
-
-<div class="card-header">
-
-<h3>Dashboard WeatherFlood</h3>
-
-</div>
-
 <div class="card-body">
+
+<div class="alert alert-primary">
+    <i class="fas fa-bell"></i>
+    <?= $notification ?>
+</div>
 
 <h2>Selamat Datang 👋</h2>
 
@@ -70,7 +67,12 @@
 Aplikasi Prediksi Hujan dan Potensi Banjir Berbasis Machine Learning.
 </p>
 
+<div class="card-header">
+
+<h3>Dashboard WeatherFlood</h3>
+
 </div>
+
 
 </div>
 

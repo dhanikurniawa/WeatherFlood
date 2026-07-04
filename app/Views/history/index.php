@@ -12,6 +12,11 @@ Riwayat Prediksi
 </div>
 
 <div class="card-body">
+<?php if(isset($reportMessage)): ?>
+<div class="alert alert-success">
+    <?= $reportMessage; ?>
+</div>
+<?php endif; ?>
 
 <table id="datatable" class="table table-bordered table-striped">
 

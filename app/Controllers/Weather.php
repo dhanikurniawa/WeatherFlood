@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\WeatherModel;
+use App\Libraries\Services\WeatherManager;
 
 class Weather extends BaseController
 {
@@ -21,19 +22,28 @@ class Weather extends BaseController
     }
 
     public function store()
-    {
-        $model = new WeatherModel();
+{
+    $manager = new WeatherManager();
 
-        $model->save([
-            'tanggal' => $this->request->getPost('tanggal'),
-            'suhu' => $this->request->getPost('suhu'),
-            'kelembaban' => $this->request->getPost('kelembaban'),
-            'curah_hujan' => $this->request->getPost('curah_hujan'),
-            'potensi_banjir' => $this->request->getPost('potensi_banjir'),
-        ]);
+    $data = [
+        'tanggal' => $this->request->getPost('tanggal'),
+        'suhu' => $this->request->getPost('suhu'),
+        'kelembaban' => $this->request->getPost('kelembaban'),
+        'curah_hujan' => $this->request->getPost('curah_hujan'),
+        'potensi_banjir' => $this->request->getPost('potensi_banjir'),
+    ];
 
-        return redirect()->to('/weather');
+    if (!$manager->validate($data)) {
+        return redirect()->back()->with('error', 'Data tidak lengkap.');
     }
+
+    $manager->save($data);
+
+    $model = new WeatherModel();
+    $model->save($data);
+
+    return redirect()->to('/weather');
+}
 
     public function edit($id)
     {
@@ -45,27 +55,39 @@ class Weather extends BaseController
     }
 
     public function update($id)
-    {
-        $model = new \App\Models\WeatherModel();
+{
+    $manager = new WeatherManager();
 
-        $model->update($id, [
-            'tanggal' => $this->request->getPost('tanggal'),
-            'suhu' => $this->request->getPost('suhu'),
-            'kelembaban' => $this->request->getPost('kelembaban'),
-            'curah_hujan' => $this->request->getPost('curah_hujan'),
-            'potensi_banjir' => $this->request->getPost('potensi_banjir'),
-        ]);
+    $data = [
+        'tanggal' => $this->request->getPost('tanggal'),
+        'suhu' => $this->request->getPost('suhu'),
+        'kelembaban' => $this->request->getPost('kelembaban'),
+        'curah_hujan' => $this->request->getPost('curah_hujan'),
+        'potensi_banjir' => $this->request->getPost('potensi_banjir'),
+    ];
 
-        return redirect()->to('/weather');
+    if (!$manager->validate($data)) {
+        return redirect()->back()->with('error', 'Data tidak lengkap.');
     }
-    public function delete($id)
-    {
-        $model = new \App\Models\WeatherModel();
 
-        $model->delete($id);
+    $manager->update($id, $data);
 
-        return redirect()->to('/weather');
-    }
+    $model = new WeatherModel();
+    $model->update($id, $data);
+
+    return redirect()->to('/weather');
+}
+public function delete($id)
+{
+    $manager = new WeatherManager();
+
+    $manager->delete($id);
+
+    $model = new WeatherModel();
+    $model->delete($id);
+
+    return redirect()->to('/weather');
+}
 
     public function import()
 {
