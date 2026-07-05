@@ -20,18 +20,13 @@ class FloodPrediction extends FloodService implements Predictable
 
         $command = $python . " " .
             escapeshellarg($script) . " " .
-            $weatherData['suhu'] . " " .
-            $weatherData['kelembaban'] . " " .
-            $weatherData['tekanan'] . " " .
-            $weatherData['angin'] . " " .
-            $weatherData['curah'];
+            escapeshellarg($weatherData['suhu']) . " " .
+            escapeshellarg($weatherData['kelembaban']) . " " .
+            escapeshellarg($weatherData['tekanan']) . " " .
+            escapeshellarg($weatherData['angin']) . " " .
+            escapeshellarg($weatherData['curah']) . " " .
+            escapeshellarg($weatherData['hujan']);
 
-        $hasil = trim(shell_exec($command));
-
-        if (empty($hasil)) {
-            $hasil = "Prediksi Gagal";
-        }
-
-        return $hasil;
+        return trim(shell_exec($command));
     }
 }

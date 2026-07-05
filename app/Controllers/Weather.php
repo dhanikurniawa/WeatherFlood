@@ -111,7 +111,7 @@ public function delete($id)
                 'kecepatan_angin'  => $row[4],
                 'curah_hujan'      => $row[5],
                 'hujan'            => $row[6],
-                'potensi_banjir'   => $row[7],
+                'potensi_banjir'   => '',
             ]);
         }
     }

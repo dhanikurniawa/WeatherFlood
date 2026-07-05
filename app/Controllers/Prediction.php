@@ -29,9 +29,10 @@ class Prediction extends BaseController
             'kelembaban' => $kelembaban,
             'tekanan' => $tekanan,
             'angin' => $angin,
-            'curah' => $curah
+            'curah' => $curah,
+            'hujan' => $hujan
         ]);
-
+        
         $model = new PredictionModel();
 
         $model->save([

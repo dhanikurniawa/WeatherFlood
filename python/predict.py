@@ -1,10 +1,11 @@
+import os
 import joblib
 import sys
 
-# Load model
-model = joblib.load("model.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Ambil input dari PHP
+model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
+
 suhu = float(sys.argv[1])
 kelembaban = float(sys.argv[2])
 tekanan = float(sys.argv[3])
@@ -13,7 +14,6 @@ curah = float(sys.argv[5])
 
 hujan = 1 if sys.argv[6] == "Ya" else 0
 
-# Prediksi
 hasil = model.predict([
     [suhu, kelembaban, tekanan, angin, curah, hujan]
 ])
